@@ -1,0 +1,18 @@
+<div class="detail">
+  <img src="<%= toy.get("image_url") %>" alt="<%= toy.escape("name") %>" /> <br>
+  <label for="toyName">Name: <%= toy.escape("name") %></label> <br>
+  <label for="toyHappiness">Happiness: <%= toy.escape("happiness") %></label> <br>
+  <label for="toyPrice">Price: <%= toy.escape("price") %></label>
+
+  <select class="" name="">
+
+  <% pokemon.forEach(function(pokemon) { %>
+
+    <% if (pokemon.escape("id") === toy.escape("pokemon_id")) { %>
+      <option selected><%= pokemon.escape("name") %></option>
+    <% } else { %>
+      <option><%= pokemon.escape("name") %></option>
+    <% } %>
+  <% })  %>
+  </select>
+</div>

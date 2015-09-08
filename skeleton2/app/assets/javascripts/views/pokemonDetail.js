@@ -9,8 +9,25 @@ Pokedex.Views.PokemonDetail = Backbone.View.extend({
     return this;
   },
 
-  initialize: function() {
+  events: {
+    "click li": "selectToyFromList"
+  },
+
+  initialize: function(options) {
     this.listenTo(this.model, "sync", this.render);
+    this.listenTo(this.model, "sync", options.callback);
+    this.model.fetch();
     this.toys = this.model.toys();
+
+  },
+
+  selectToyFromList: function(e) {
+    var toyId = $(e.currentTarget).data('toy-id');
+    var pokemonId = $(e.currentTarget).data('pokemon-id');
+    var toy = this.toys.get(toyId);
+    var $el = $("#pokedex .toy-detail");
+
+    var url = "/pokemon/" + pokemonId + "/toys/" + toyId;
+    Backbone.history.navigate(url, {trigger: true});
   }
 });

@@ -18,17 +18,20 @@ Pokedex.Views.PokemonIndex = Backbone.View.extend({
     this.$el.append(JST["pokemonListItem"]({pokemon: pokemon}));
   },
 
-  refreshPokemon: function () {
-    this.collection.fetch();
+  refreshPokemon: function (showPokemon) {
+    this.collection.fetch({
+      success: function(model, response, options){
+        if (showPokemon) {
+          showPokemon();
+        };
+      }
+    });
   },
 
   selectPokemonFromList: function(e){
     var id = $(e.currentTarget).data('id');
-    var poke = this.collection.get(id);
-    var $el = $("#pokedex .pokemon-detail");
-    var detailView = new Pokedex.Views.PokemonDetail({model: poke, el: $el});
-    // this.renderPokemonDetail(poke);
-    // detailView.render();
-    poke.fetch()
+    var url = "pokemon/" + id;
+    Backbone.history.navigate(url, {trigger: true});
+    
   }
 })
